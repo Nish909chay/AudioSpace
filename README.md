@@ -85,35 +85,42 @@ For always-on deployment, consider upgrading to a paid plan.
 # Problems Faced & Solutions
 
 1. MongoDB Atlas SSL/TLS Error
-Problem:
-MongoServerSelectionError: SSL routines:tlsv1 alert internal error
-Solution:
-Used correct connection options for MongoDB Atlas:
+Problem: MongoServerSelectionError: SSL routines:tlsv1 alert internal error
+
+Solution: Used correct connection options for MongoDB Atlas:
 Removed deprecated useUnifiedTopology option.
+
 2. Express Route Error on Render
 Problem:
 TypeError: Missing parameter name at 1: https://git.new/pathToRegexpError
+
 Solution:
 Ensured all Express routes had valid parameter names and unified backend dependencies to Express 4.x.
+
 3. Git Push Rejected
 Problem:
 Updates rejected due to remote having unrelated history.
+
 Solution:
 Pulled with --allow-unrelated-histories, resolved merge conflicts, and pushed again.
+
 4. Room Synchronization Issues
 Problem:
 Play/Pause not syncing; "room does not exist" until a track is played.
+
 Solution:
 Improved backend logic to:
 Create rooms upon join
 Always broadcast play/pause events
 Sync state to newly joined users
+
 5. General Render Learning
 Learned how to:
 Set up environment variables
 Handle Render’s sleep/cold start behavior
 Use the deployment dashboard effectively
-🔄 Synchronization Logic
+
+# Synchronization Logic
 Uses Socket.IO for real-time communication.
 On joining a room:
 The server checks for or creates the room in memory.
