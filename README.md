@@ -1,8 +1,9 @@
-AudioSpace
+# AudioSpace
+
 AudioSpace is a collaborative audio room web app where users can join rooms, search for tracks (YouTube/SoundCloud), and listen together in sync.
 This project was my first deployment on Render and served as a learning experience in cloud deployment, backend/frontend integration, and real-time synchronization.
 
-Features
+# Features
 Room-based audio sharing: Users can join or create rooms and listen to tracks together.
 
 Real-time sync: Play, pause, and track position are synchronized for all users in a room using Socket.IO.
@@ -15,16 +16,19 @@ REST API: Used for health checks, room management, and search.
 
 Deployed on Render: Free tier, with all its quirks and learning opportunities.
 
-Technologies Used
-Frontend: (Not included here; assumed to be React or similar)
+# Technologies Used
+## 🛠️ Technologies Used
 
-Backend: Node.js, Express, Socket.IO
+- **Node.js**: JavaScript runtime for the backend server.
+- **Express**: Web framework for building REST APIs.
+- **Socket.IO**: Enables real-time, bidirectional communication for room synchronization (play/pause, track position).
+- **MongoDB Atlas**: Cloud-hosted NoSQL database for storing room and user data.
+- **Axios**: HTTP client for making API requests to SoundCloud and YouTube.
+- **Render**: Cloud platform used for deploying and hosting the backend service.
+- **YouTube APIs**: For searching and streaming audio tracks.
 
-Database: MongoDB Atlas (cloud-hosted)
+# How to Run Locally
 
-Deployment: Render.com (Free Tier)
-
-How to Run Locally
 Clone the repository
 
 sh
@@ -32,8 +36,8 @@ Copy
 Edit
 git clone https://github.com/Nish909chay/AudioSpace.git
 cd AudioSpace/audiospace
-Install dependencies
 
+Install dependencies
 sh
 Copy
 Edit
@@ -57,7 +61,8 @@ npm start
 The backend will run at:
 http://localhost:4000
 
-How to Deploy on Render
+# How to Deploy on Render
+
 Push your code to GitHub.
 
 Create a new Web Service on Render:
@@ -70,14 +75,15 @@ Add your MONGO_URI as an Environment Variable in the Render dashboard.
 
 Render will auto-detect your start script and deploy.
 
-Free Tier Notes
+# Free Tier Notes
 Service may sleep after 15 minutes of inactivity (cold start delay).
 
 Limited resources and monthly hours.
 
 For always-on deployment, consider upgrading to a paid plan.
 
-Problems Faced & Solutions
+# Problems Faced & Solutions
+
 MongoDB Atlas SSL/TLS Error
 
 Problem: MongoServerSelectionError: SSL routines:tlsv1 alert internal error
@@ -137,10 +143,7 @@ Play/Pause events are broadcast to all users in the room.
 
 Room and user information is stored in MongoDB for persistence.
 
-Git Workflow
-sh
-Copy
-Edit
+# Git 
 # Clone
 git clone https://github.com/Nish909chay/AudioSpace.git
 
