@@ -25,7 +25,12 @@ const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017';
 const DB_NAME = 'audiospace';
 let db;
 
-MongoClient.connect(MONGO_URI, { useUnifiedTopology: true })
+// Use correct options for MongoDB Atlas and remove deprecated useUnifiedTopology
+MongoClient.connect(MONGO_URI, {
+  tls: true,
+  retryWrites: true,
+  w: 'majority',
+})
   .then(client => {
     db = client.db(DB_NAME);
     console.log('Connected to MongoDB');
@@ -48,11 +53,21 @@ async function saveRoomUser(roomId, user) {
 // Socket.IO logic for room join/sync
 io.on('connection', (socket) => {
   socket.on('joinRoom', async ({ roomId, user }) => {
-    socket.join(roomId);
+    // Create room in memory if it doesn't exist
     if (!rooms[roomId]) rooms[roomId] = { users: [], track: null, position: 0, playing: false };
-    rooms[roomId].users.push(user);
-    await saveRoomUser(roomId, user);
+    // Add user if not already present
+    if (!rooms[roomId].users.includes(user)) {
+      rooms[roomId].users.push(user);
+      await saveRoomUser(roomId, user);
+    }
+    socket.join(roomId);
     io.to(roomId).emit('roomUpdate', rooms[roomId]);
+    // Sync new user with current state
+    socket.emit('syncState', {
+      track: rooms[roomId].track,
+      position: rooms[roomId].position,
+      playing: rooms[roomId].playing
+    });
   });
 
   socket.on('playTrack', ({ roomId, track, position }) => {
