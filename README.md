@@ -84,66 +84,46 @@ For always-on deployment, consider upgrading to a paid plan.
 
 # Problems Faced & Solutions
 
-MongoDB Atlas SSL/TLS Error
-
-Problem: MongoServerSelectionError: SSL routines:tlsv1 alert internal error
-
-Solution: Used correct connection options:
-
-js
-Copy
-Edit
-tls: true, retryWrites: true, w: 'majority'
+1. MongoDB Atlas SSL/TLS Error
+Problem:
+MongoServerSelectionError: SSL routines:tlsv1 alert internal error
+Solution:
+Used correct connection options for MongoDB Atlas:
 Removed deprecated useUnifiedTopology option.
-
-Express Route Error on Render
-
-Problem: TypeError: Missing parameter name at 1: https://git.new/pathToRegexpError
-
-Solution: Ensured all Express routes had valid parameter names and unified backend dependencies to Express 4.x.
-
-Git Push Rejected
-
-Problem: Updates rejected due to remote having unrelated history.
-
-Solution: Pulled with --allow-unrelated-histories, resolved merge conflicts, and pushed again.
-
-Room Synchronization Issues
-
-Problem: Play/Pause not syncing; "room does not exist" until a track is played.
-
-Solution: Improved backend logic to:
-
-Create rooms upon join,
-
-Always broadcast play/pause,
-
-Sync state to newly joined users.
-
-General Render Learning
-
+2. Express Route Error on Render
+Problem:
+TypeError: Missing parameter name at 1: https://git.new/pathToRegexpError
+Solution:
+Ensured all Express routes had valid parameter names and unified backend dependencies to Express 4.x.
+3. Git Push Rejected
+Problem:
+Updates rejected due to remote having unrelated history.
+Solution:
+Pulled with --allow-unrelated-histories, resolved merge conflicts, and pushed again.
+4. Room Synchronization Issues
+Problem:
+Play/Pause not syncing; "room does not exist" until a track is played.
+Solution:
+Improved backend logic to:
+Create rooms upon join
+Always broadcast play/pause events
+Sync state to newly joined users
+5. General Render Learning
 Learned how to:
-
-Set up environment variables,
-
-Handle Render’s sleep/cold start behavior,
-
-Use the deployment dashboard effectively.
-
-Synchronization Logic
+Set up environment variables
+Handle Render’s sleep/cold start behavior
+Use the deployment dashboard effectively
+🔄 Synchronization Logic
 Uses Socket.IO for real-time communication.
-
 On joining a room:
-
-The server checks/creates the room in memory.
-
+The server checks for or creates the room in memory.
 Syncs the current track state to the new user.
+Play/Pause events:
+Broadcast to all users in the room for real-time sync.
+Persistence:
+Room and user information is stored in MongoDB for history and multi-device support.
 
-Play/Pause events are broadcast to all users in the room.
 
-Room and user information is stored in MongoDB for persistence.
-
-# Git 
 # Clone
 git clone https://github.com/Nish909chay/AudioSpace.git
 
