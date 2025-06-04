@@ -126,7 +126,9 @@ app.get('/api/soundcloud/search', async (req, res) => {
 // YouTube search endpoint
 app.get('/api/youtube/search', async (req, res) => {
   const { q } = req.query;
+  const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY;
   if (!q) return res.status(400).json({ error: 'Missing query' });
+  if (!YOUTUBE_API_KEY) return res.status(500).json({ error: 'Missing YouTube API key' });
   try {
     const response = await axios.get('https://www.googleapis.com/youtube/v3/search', {
       params: {
@@ -134,7 +136,7 @@ app.get('/api/youtube/search', async (req, res) => {
         q,
         type: 'video',
         maxResults: 10,
-        key: 'AIzaSyCh3gJfoUgFMS9e77JTzmZNJR6U2ftvLqw'
+        key: YOUTUBE_API_KEY
       }
     });
     res.json(response.data.items.map(item => ({
